@@ -9,11 +9,23 @@ MEALS = (
 )
 
 # Create your models here.
+
+class Decoration(models.Model):
+  name = models.CharField(max_length=50)
+  color = models.CharField(max_length=20)
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('decorations_detail', kwargs={'pk': self.id})
+  
 class Finch(models.Model):
   name = models.CharField(max_length=100)
   breed = models.CharField(max_length=100)
   description = models.TextField(max_length=250)
   habitat = models.TextField(max_length=250)
+  decorations = models.ManyToManyField(Decoration)
 
 #   age = models.IntegerField()
   def __str__(self):
